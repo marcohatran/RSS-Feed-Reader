@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RSS FEED</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+</head>
+
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Latest feeds, just one click away!
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-2 is-8">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <form method="POST" name="URLForm">
+                                    {% csrf_token %}
+                                    <div class="control">
+                                        <input class="urlField" type="url" name="url" placeholder='Enter a valid URL'>
+                                        <button type="submit" class="button is-info">
+                                            Being Reading!
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-2 is-8">
+                    {% if entries %}
+                        {% for entry in entries %}
+                        <div class="box">
+                            <article class="media">
+                                <div class="media-left">
+                                    <figure class="image is-50x50">
+                                        <img src="{{ media_url }}">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <div class="content">
+                                            <b><a class="big" href={{ entry.link }}>{{ entry.title }}</a></b>
+                                            <div class="source">
+                                                <b><i>From</i></b>
+                                                <a href="{{ feed.link }}" target = "_blank">{{ feed.title }}</a>{% if feed.image.url %}
+                                                <img src="{{ feed.image.url }}" alt="image" height="50px" width="50px" />
+                                                {% endif %}
+                                                <span> <i><b>on</b></i>  {{ entry.published }}</span>
+
+                                            </div>
+                                            <br>
+                                            <span class="desc">{{ entry.description }}</span>
+                                        <img src="{{ entry.media_thumbnail }}" alt="" />
+                                            <br>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                    	<p class="title">{{ error_msg }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    </footer>
+</body>
+
+</html>
