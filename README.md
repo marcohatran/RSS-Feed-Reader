@@ -6,6 +6,6 @@
 #### 4. Run the following command to run server on localhost:
         python manage.py runserver
 ##### 5. Navigate to your localhost e.g: `http://127.0.0.1:8000/`
-##### 6. Below is the live application demonstration:
+##### 6. App in Action:
  
 ![](https://github.com/amit-k-yadav/RSS-Feed-Reader/blob/master/RSS-Reader.gif)
